@@ -60,6 +60,17 @@ class ExtendedClient extends DiscordJS.Client {
             console.log("[DISCORD]", "[COMMANDS]", (error?.message ? error.message : error));
         });
     };
+
+    registerPrivateCommands = () => {
+        this.discordApi.put(Routes.applicationGuildCommands(this.user.id, ("938780069894164490")), {
+            body: this.commands.filter((command) => command.isPrivate).map((command) => command.data.toJSON()),
+        }).then(() => {
+            console.log("[DISCORD]", "[COMMANDS]", (`Successfully registered application private commands`));
+        }).catch((error) => {
+            console.log("[DISCORD]", "[COMMANDS]", (`Unbale to register application private commands`));
+            console.log("[DISCORD]", "[COMMANDS]", (error?.message ? error.message : error));
+        });
+    };
 };
 
 module.exports = ExtendedClient;
